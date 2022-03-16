@@ -52,7 +52,47 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+cat ip_test.sh
+#!/bin/bash
+hosts=(192.168.0.1 173.194.222.113 87.250.250.242)
+for i in {1..5}
+do
+date >>ip_test.log
+  for h in ${hosts[@]}
+    do
+    result=$(ping -c 2 -W  1 -q  $h | grep transmitted)
+    pattern="0 received";
+    if [[ $result =~ $pattern ]]
+    then
+    echo "$h is down" >>ip_test.log
+    else
+    echo "$h is up" >>ip_test.log
+  fi
+  done
+done
+
+cat ip_test.log
+Tue 15 Mar 2022 12:21:37 PM UTC
+192.168.0.1 is down
+173.194.222.113 is down
+87.250.250.242 is down
+Tue 15 Mar 2022 12:21:43 PM UTC
+192.168.0.1 is down
+173.194.222.113 is down
+87.250.250.242 is down
+Tue 15 Mar 2022 12:21:49 PM UTC
+192.168.0.1 is down
+173.194.222.113 is down
+87.250.250.242 is down
+Tue 15 Mar 2022 12:21:55 PM UTC
+192.168.0.1 is down
+173.194.222.113 is down
+87.250.250.242 is down
+Tue 15 Mar 2022 12:22:01 PM UTC
+192.168.0.1 is down
+173.194.222.113 is down
+87.250.250.242 is down
+
 ```
 
 ## Обязательная задача 4
@@ -60,14 +100,30 @@ done
 
 ### Ваш скрипт:
 ```bash
-???
+cat ip_test.sh
+#!/bin/bash
+hosts=(192.168.0.1 173.194.222.113 87.250.250.242)
+for i in {1..5}
+do
+date >>ip_test.log
+  for h in ${hosts[@]}
+    do
+    result=$(ping -c 2 -W  1 -q  $h | grep transmitted)
+    pattern="0 received";
+    if [[ $result =~ $pattern ]]
+    then
+    date >>ip_err.log
+    echo "$h is down" >>ip_err.log ;exit
+    else
+    echo "$h is up" >>ip_test.log
+  fi
+  done
+done
+
+cat ip_err.log
+Wed 16 Mar 2022 06:15:27 AM UTC
+192.168.0.1 is down
+
 ```
 
-## Дополнительное задание (со звездочкой*) - необязательно к выполнению
 
-Мы хотим, чтобы у нас были красивые сообщения для коммитов в репозиторий. Для этого нужно написать локальный хук для git, который будет проверять, что сообщение в коммите содержит код текущего задания в квадратных скобках и количество символов в сообщении не превышает 30. Пример сообщения: \[04-script-01-bash\] сломал хук.
-
-### Ваш скрипт:
-```bash
-???
-```

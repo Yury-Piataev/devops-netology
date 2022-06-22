@@ -238,10 +238,13 @@ Seq Scan — последовательное, блок за блоком, чт�
 
 ### Ответ:
 ```
-pg_dump "test_db" -U postgres > /var/lib/postgresql/test_db_210622.dump
+Создание бэкапа:
+pg_dump -Upostgres test_db > /var/lib/postgresql/220622.dump
 
-createdb "test_db" -U postgres 
-psql "test_db" -U postgres < /var/lib/postgresql/test_db_210622.dump
+В новом контейнере нужно создать пустую базу:
+CREATE DATABASE test_dbn;
 
+и восстановить данные:
+root@e7cbb22744ea:/# psql -Upostgres -d test_dbn < /var/lib/postgresql/220622.dump
 ```
 ---
